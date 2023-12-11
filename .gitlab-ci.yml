@@ -1,0 +1,40 @@
+pipeline:
+  agent: any
+
+  stages:
+    - name: 'Clone Repository'
+      steps:
+        - script:
+            code: |
+              echo 'Cloning the repository...'
+              # Здесь используйте команду для клонирования репозитория, например, git clone
+              git clone <repository_url>
+
+    - name: 'Build Application'
+      steps:
+        - script:
+            code: |
+              echo 'Building the application...'
+              # Здесь используйте команду для сборки приложения, например, mvn clean install
+              mvn clean install
+
+    - name: 'Functional Test'
+      steps:
+        - script:
+            code: |
+              echo 'Running functional tests...'
+              # Здесь используйте команду для запуска функциональных тестов
+              mvn test
+
+  post:
+    success:
+      script:
+        code: |
+          echo 'CI/CD pipeline executed successfully!'
+          # Здесь можно добавить дополнительные действия в случае успешного завершения пайплайна
+
+    failure:
+      script:
+        code: |
+          echo 'CI/CD pipeline failed!'
+          # Здесь можно добавить дополнительные действия в случае неудачного завершения пайплайна
